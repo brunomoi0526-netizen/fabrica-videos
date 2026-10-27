@@ -1,0 +1,231 @@
+{
+  "id": "001_paso_diatlov",
+  "titulo": "El misterio del Paso Diátlov: ¿qué hizo huir a 9 excursionistas en plena noche helada?",
+  "texto_miniatura": "Cortaron su tienda desde adentro",
+  "miniatura_escena": 3,
+  "descripcion": "En febrero de 1959, nueve jóvenes excursionistas soviéticos murieron en los montes Urales. Su tienda estaba rajada desde adentro, sus huellas bajaban por la ladera en calcetines y algunos cuerpos tenían heridas que nadie supo explicar. Durante más de sesenta años se habló de yetis, pruebas militares y fuerzas desconocidas. En este video repasamos lo que se sabe con certeza, las teorías más famosas y lo que la ciencia descubrió en 2021.\n\n¿Qué misterio quieres que investiguemos después? Déjalo en los comentarios.",
+  "etiquetas": ["paso diatlov", "paso dyatlov", "misterios sin resolver", "misterios de la historia", "montes urales", "incidente del paso diatlov", "historia", "misterios", "documental en español", "casos sin resolver", "unión soviética", "avalancha"],
+  "fuentes": [
+    "Gaume, J. y Puzrin, A. M. (2021). Mechanisms of slab avalanche release and impact in the Dyatlov Pass incident in 1959. Communications Earth & Environment.",
+    "The Moscow Times (28/01/2021): Study Sheds New Light on Russia's Dyatlov Pass Mountain Mystery",
+    "EPFL: Using science to explore a 60-year-old Russian mystery"
+  ],
+  "escenas": [
+    {
+      "capitulo": "Introducción",
+      "texto": "La noche del primero de febrero de mil novecientos cincuenta y nueve, en lo alto de los montes Urales, nueve jóvenes salieron corriendo de su tienda de campaña. Hacía unos veinticinco grados bajo cero. No llevaban botas. Algunos iban solo en ropa interior. Y no salieron por la puerta: rajaron la lona desde adentro con un cuchillo.",
+      "imagen": "Ural mountains winter night snow",
+      "imagen_alternativas": ["Northern Ural mountains snow"]
+    },
+    {
+      "texto": "Ninguno sobrevivió. Durante más de sesenta años, nadie pudo explicar qué los hizo huir hacia una muerte casi segura. Hoy vamos a reconstruir lo que pasó, paso a paso, y a ver qué descubrió la ciencia sobre uno de los misterios más famosos del siglo veinte.",
+      "imagen": "Dyatlov Pass memorial",
+      "imagen_alternativas": ["Dyatlov Pass"]
+    },
+    {
+      "capitulo": "La expedición",
+      "texto": "Todo empezó el veintitrés de enero de mil novecientos cincuenta y nueve, en la ciudad soviética de Sverdlovsk, la actual Ekaterimburgo. Un grupo de diez estudiantes y graduados del Instituto Politécnico de los Urales partió hacia el norte. Eran esquiadores con experiencia. Su meta: llegar a la cumbre del monte Otorten, en una ruta de la máxima dificultad de la época.",
+      "imagen": "Ural Polytechnic Institute Yekaterinburg",
+      "imagen_alternativas": ["Yekaterinburg old photo"]
+    },
+    {
+      "texto": "El líder era Ígor Diátlov, un estudiante de ingeniería de veintitrés años. Con él iban, entre otros, Zinaída Kolmogórova y Liudmila Dubínina, dos de las mejores montañeras del grupo, y Semión Zolotariov, el mayor, un veterano de la Segunda Guerra Mundial de treinta y siete años.",
+      "imagen": "Dyatlov group 1959",
+      "imagen_alternativas": ["Igor Dyatlov"]
+    },
+    {
+      "texto": "El veintiocho de enero, uno de ellos, Yuri Yudin, tuvo que regresar por un fuerte dolor en la pierna. Se despidió de sus amigos sin saber que esa sería la última vez que los vería. Esa decisión le salvó la vida.",
+      "imagen": "Yuri Yudin Dyatlov",
+      "imagen_alternativas": ["skiers Soviet 1959 expedition"]
+    },
+    {
+      "capitulo": "La última noche",
+      "texto": "Los nueve restantes siguieron avanzando por el bosque y luego subieron hacia las laderas desnudas. El primero de febrero, el mal tiempo los desvió de su ruta. Decidieron acampar en la pendiente de una montaña que el pueblo mansi, los habitantes originarios de la zona, llamaba Jolat Siajl. Su traducción aproximada es: la montaña muerta.",
+      "imagen": "Kholat Syakhl",
+      "imagen_alternativas": ["Kholat Syakhl mountain Ural"]
+    },
+    {
+      "texto": "Excavaron una plataforma en la nieve, pusieron sus esquís en el suelo como aislante y montaron la tienda. Por las fotos que tomaron ese día sabemos que estaban de buen humor. Cenaron, escribieron en su diario y se prepararon para dormir. Pero en algún momento de esa noche, algo ocurrió.",
+      "imagen": "Dyatlov tent setup 1959",
+      "imagen_alternativas": ["winter camping tent snow mountain"]
+    },
+    {
+      "capitulo": "La búsqueda",
+      "texto": "Diátlov había prometido enviar un telegrama al volver, hacia el doce de febrero. El día pasó y no llegó ningún mensaje. Los familiares empezaron a presionar y el veinte de febrero comenzó una gran operación de búsqueda con voluntarios, militares y aviones.",
+      "imagen": "Dyatlov pass search party 1959",
+      "imagen_alternativas": ["Soviet rescue team snow"]
+    },
+    {
+      "texto": "El veintiséis de febrero, los rescatistas encontraron la tienda. Estaba medio hundida y cubierta de nieve. Dentro seguían las botas, los abrigos, la comida y el equipo. Y en un lado de la lona había varios cortes largos. Los investigadores confirmaron después algo escalofriante: los cortes se habían hecho desde adentro.",
+      "imagen": "Dyatlov tent found 1959",
+      "imagen_alternativas": ["Dyatlov Pass tent"]
+    },
+    {
+      "texto": "Alrededor de la tienda había huellas de unas ocho o nueve personas. Bajaban por la ladera en línea, sin señales de pánico desordenado. Muchas eran de pies descalzos o en calcetines. Se dirigían hacia el bosque, a más de un kilómetro y medio de distancia.",
+      "imagen": "footprints in snow slope",
+      "imagen_alternativas": ["snow slope mountain forest edge"]
+    },
+    {
+      "capitulo": "Los cuerpos",
+      "texto": "Al llegar al borde del bosque, bajo un gran pino, encontraron los restos de una pequeña fogata y dos cuerpos: Yuri Krivonischenko y Yuri Doroshenko. Estaban casi sin ropa. Las ramas del árbol estaban rotas hasta varios metros de altura, como si alguien hubiera trepado para mirar hacia la tienda.",
+      "imagen": "Siberian pine forest winter snow",
+      "imagen_alternativas": ["cedar tree snow forest"]
+    },
+    {
+      "texto": "Entre el pino y la tienda aparecieron otros tres cuerpos: Ígor Diátlov, Zinaída Kolmogórova y Rustem Slobodin. Sus posiciones indicaban que habían intentado volver al campamento, ladera arriba, contra el viento. Los forenses concluyeron que los cinco habían muerto de hipotermia.",
+      "imagen": "snowy mountain slope blizzard",
+      "imagen_alternativas": ["Ural mountains snow slope"]
+    },
+    {
+      "texto": "Los otros cuatro no aparecieron hasta mayo, cuando la nieve empezó a derretirse. Estaban en un barranco, bajo varios metros de nieve, y llevaban ropa que parecía tomada de sus compañeros muertos. Y aquí el caso se volvió todavía más extraño.",
+      "imagen": "ravine snow melting forest",
+      "imagen_alternativas": ["stream ravine snow spring"]
+    },
+    {
+      "texto": "Dubínina y Zolotariov tenían fracturas graves en el pecho. Nikolái Thibeaux-Brignolle tenía una fractura de cráneo. Eran heridas comparables a las de un accidente de tráfico, pero casi sin lesiones externas. Además, a Dubínina le faltaba la lengua. Y en algunas prendas se detectaron rastros de radiactividad.",
+      "imagen": "Dyatlov Pass ravine",
+      "imagen_alternativas": ["dark forest ravine winter"]
+    },
+    {
+      "capitulo": "Las teorías",
+      "texto": "En mayo de mil novecientos cincuenta y nueve, la investigación se cerró con una frase que alimentó las sospechas durante décadas: los excursionistas habían muerto a causa de una fuerza natural irresistible. Nada más. Los documentos quedaron archivados y solo se hicieron accesibles al público después de la caída de la Unión Soviética.",
+      "imagen": "Soviet archive documents",
+      "imagen_alternativas": ["old archive files"]
+    },
+    {
+      "texto": "Con tan poca información, surgieron decenas de teorías. Al principio se sospechó de los mansi, pero no había ninguna huella extraña ni señales de lucha. Luego se habló de pruebas militares secretas, de misiles o explosiones que habrían asustado al grupo. También del infrasonido del viento, que puede provocar ansiedad y pánico.",
+      "imagen": "Mansi people Ural",
+      "imagen_alternativas": ["Soviet military 1950s rocket"]
+    },
+    {
+      "texto": "Y, por supuesto, aparecieron las explicaciones más fantásticas: luces en el cielo, ovnis e incluso un yeti. Algunas de estas ideas se basaban en datos reales, como la radiactividad, que tenía una explicación sencilla: al menos uno de los excursionistas trabajaba en instalaciones nucleares. Otras, simplemente, en la imaginación.",
+      "imagen": "night sky aurora mountains",
+      "imagen_alternativas": ["starry night sky snow"]
+    },
+    {
+      "capitulo": "La respuesta de la ciencia",
+      "texto": "En dos mil diecinueve, la fiscalía rusa reabrió el caso. Al año siguiente presentó su conclusión: una avalancha, combinada con la mala visibilidad, obligó al grupo a abandonar la tienda. Muchos no quedaron convencidos. La pendiente no era muy empinada y los rescatistas no vieron rastros claros de una avalancha.",
+      "imagen": "avalanche snow slab",
+      "imagen_alternativas": ["avalanche"]
+    },
+    {
+      "texto": "Entonces, en enero de dos mil veintiuno, dos científicos suizos publicaron un estudio en la revista Communications Earth and Environment. Johan Gaume, especialista en avalanchas de la escuela politécnica de Lausana, y Alexander Puzrin, del instituto politécnico de Zúrich, propusieron un mecanismo muy concreto.",
+      "imagen": "EPFL Lausanne",
+      "imagen_alternativas": ["ETH Zurich main building"]
+    },
+    {
+      "texto": "Al cavar la plataforma para la tienda, el grupo cortó la base de la capa de nieve de la ladera. Durante la noche, fuertes vientos fueron acumulando nieve encima. Según sus cálculos, entre nueve y trece horas después, una placa de nieve compacta, no muy grande, se desprendió y cayó directamente sobre la tienda.",
+      "imagen": "slab avalanche crown snowpack",
+      "imagen_alternativas": ["wind blown snow ridge"]
+    },
+    {
+      "texto": "Para comprobar si eso explicaba las heridas, usaron simulaciones por computadora. Y aquí viene un dato curioso: adaptaron un algoritmo creado para animar la nieve en la película Frozen, de Disney. El resultado mostró que un bloque de nieve dura cayendo sobre personas acostadas encima de sus esquís podía causar exactamente fracturas como las que se encontraron.",
+      "imagen": "computer simulation snow",
+      "imagen_alternativas": ["snow block"]
+    },
+    {
+      "texto": "Eso explicaría por qué huyeron cortando la lona: estaban atrapados, temían una avalancha mayor y buscaron refugio en el bosque. Los heridos más graves habrían sido llevados al barranco por sus compañeros. Allí, la oscuridad y el frío extremo hicieron el resto.",
+      "imagen": "forest at night snow",
+      "imagen_alternativas": ["winter forest dark"]
+    },
+    {
+      "capitulo": "¿Caso cerrado?",
+      "texto": "¿Está resuelto el misterio? Los propios autores fueron prudentes: dijeron que su modelo hace muy plausible la teoría de la avalancha, pero que no explica todos los detalles. Hay preguntas que probablemente nunca tendrán respuesta, porque los únicos que sabían la verdad eran ellos nueve.",
+      "imagen": "Dyatlov Pass memorial plaque",
+      "imagen_alternativas": ["memorial stone snow mountain"]
+    },
+    {
+      "texto": "Yuri Yudin, el único que regresó, vivió hasta dos mil trece. Contó que, si pudiera hacerle una sola pregunta a Dios, sería qué les pasó a sus amigos aquella noche. Hoy, aquel lugar de los Urales lleva el nombre de su líder: el Paso Diátlov.",
+      "imagen": "Dyatlov Pass Ural landscape",
+      "imagen_alternativas": ["Northern Urals landscape"]
+    },
+    {
+      "texto": "Y tú, ¿qué crees que pasó realmente? ¿Te convence la explicación de la avalancha? Déjamelo en los comentarios. Si te gustan los misterios de la historia contados con rigor, suscríbete y activa la campanita, porque cada semana investigamos un caso nuevo.",
+      "imagen": "Ural mountains sunset snow",
+      "imagen_alternativas": ["mountain sunset winter"]
+    }
+  ],
+  "shorts": [
+    {
+      "titulo": "Cortaron su tienda DESDE ADENTRO a 25 grados bajo cero 😨 #misterio #historia",
+      "descripcion": "Paso Diátlov, 1959. La historia completa está en nuestro canal.\n#shorts #misterios #pasodiatlov #historia",
+      "etiquetas": ["paso diatlov", "misterios", "shorts", "historia", "misterios sin resolver"],
+      "escenas": [
+        {
+          "texto": "Nueve excursionistas rajaron su propia tienda desde adentro, a unos veinticinco grados bajo cero, y salieron corriendo descalzos en plena noche.",
+          "imagen": "Dyatlov tent found 1959",
+          "imagen_alternativas": ["Dyatlov Pass tent"]
+        },
+        {
+          "texto": "Pasó en los montes Urales en mil novecientos cincuenta y nueve. Cuando los rescatistas encontraron la tienda, dentro seguían sus botas, sus abrigos y su comida.",
+          "imagen": "Ural mountains winter night snow",
+          "imagen_alternativas": ["Northern Ural mountains snow"]
+        },
+        {
+          "texto": "Sus huellas bajaban en calcetines hacia el bosque. Ninguno sobrevivió. Algunos tenían fracturas como las de un accidente de tráfico, pero sin heridas por fuera.",
+          "imagen": "footprints in snow slope",
+          "imagen_alternativas": ["snow slope mountain forest edge"]
+        },
+        {
+          "texto": "La investigación oficial habló de una fuerza natural irresistible. ¿Qué los hizo huir? La respuesta completa está en el video de nuestro canal.",
+          "imagen": "Dyatlov Pass memorial",
+          "imagen_alternativas": ["Dyatlov Pass"]
+        }
+      ]
+    },
+    {
+      "titulo": "El único que sobrevivió al Paso Diátlov fue por un dolor de pierna #misterio",
+      "descripcion": "Yuri Yudin y el misterio del Paso Diátlov. Video completo en el canal.\n#shorts #misterios #pasodiatlov",
+      "etiquetas": ["paso diatlov", "yuri yudin", "misterios", "shorts", "historia"],
+      "escenas": [
+        {
+          "texto": "Un dolor en la pierna le salvó la vida. En enero de mil novecientos cincuenta y nueve, diez jóvenes salieron a esquiar por los montes Urales.",
+          "imagen": "skiers Soviet 1959 expedition",
+          "imagen_alternativas": ["Dyatlov group 1959"]
+        },
+        {
+          "texto": "A los pocos días, Yuri Yudin tuvo que volver a casa. Se despidió de sus nueve amigos sin saber que nunca los volvería a ver.",
+          "imagen": "Yuri Yudin Dyatlov",
+          "imagen_alternativas": ["winter forest dark"]
+        },
+        {
+          "texto": "Una noche, todos ellos huyeron de su tienda medio desnudos y murieron en la nieve. El caso se convirtió en uno de los misterios más famosos del mundo.",
+          "imagen": "snowy mountain slope blizzard",
+          "imagen_alternativas": ["Ural mountains snow slope"]
+        },
+        {
+          "texto": "Yudin vivió hasta dos mil trece y nunca supo qué les pasó. Hoy la ciencia tiene una explicación. Te la contamos en el video completo del canal.",
+          "imagen": "Dyatlov Pass memorial plaque",
+          "imagen_alternativas": ["memorial stone snow mountain"]
+        }
+      ]
+    },
+    {
+      "titulo": "La película Frozen ayudó a resolver un misterio de 60 años ❄️ #ciencia #misterio",
+      "descripcion": "Así usaron la ciencia para explicar el Paso Diátlov. Video completo en el canal.\n#shorts #ciencia #pasodiatlov #frozen",
+      "etiquetas": ["paso diatlov", "frozen", "ciencia", "avalancha", "shorts"],
+      "escenas": [
+        {
+          "texto": "La película Frozen, de Disney, ayudó a explicar un misterio de más de sesenta años. Sí, la de Elsa.",
+          "imagen": "snow crystals macro",
+          "imagen_alternativas": ["snow block"]
+        },
+        {
+          "texto": "En mil novecientos cincuenta y nueve, nueve excursionistas murieron en los Urales tras huir de su tienda. Algunos tenían fracturas inexplicables.",
+          "imagen": "Dyatlov Pass ravine",
+          "imagen_alternativas": ["dark forest ravine winter"]
+        },
+        {
+          "texto": "En dos mil veintiuno, dos científicos suizos simularon una pequeña avalancha cayendo sobre la tienda. Para hacerlo, adaptaron el algoritmo con el que Disney animó la nieve de Frozen.",
+          "imagen": "avalanche snow slab",
+          "imagen_alternativas": ["avalanche"]
+        },
+        {
+          "texto": "El resultado encajó con las heridas reales. ¿Caso cerrado? No del todo. Mira la historia completa en nuestro canal.",
+          "imagen": "Dyatlov Pass Ural landscape",
+          "imagen_alternativas": ["Northern Urals landscape"]
+        }
+      ]
+    }
+  ]
+}
