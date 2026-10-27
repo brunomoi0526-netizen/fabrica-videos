@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e1116">
+<title>Fábrica de Videos</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icono-192.png">
+<style>
+:root{
+  --bg:#0e1116;--panel:#171b22;--panel2:#1f242d;--line:#2b313c;--txt:#e9edf2;--sub:#97a1ae;
+  --acc:#ffcf33;--acc-txt:#1a1400;--ok:#3ecf8e;--warn:#f5a524;--err:#ff5d5d;--blue:#5aa9ff;
+  --r:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:5;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:10px}
+header h1{font-size:18px;margin:0;flex:1;letter-spacing:.2px}
+header .canal{font-size:12px;color:var(--sub);font-weight:500}
+main{max-width:640px;margin:0 auto;padding:16px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:6;background:var(--panel);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border:0;color:var(--sub);padding:10px 0 8px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:3px}
+nav button svg{width:24px;height:24px}
+nav button.on{color:var(--acc)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.card h3{margin:0 0 6px;font-size:16px}
+.muted{color:var(--sub);font-size:14px}
+.small{font-size:12.5px}
+label{display:block;font-size:13px;color:var(--sub);margin:12px 0 5px}
+input,textarea,select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 12px;font:inherit;font-size:16px}
+textarea{resize:vertical;min-height:90px}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:13px 16px;font:600 15px system-ui,sans-serif;background:var(--panel2);color:var(--txt);border:1px solid var(--line);width:100%;margin-top:10px;text-decoration:none;cursor:pointer}
+.btn.pri{background:var(--acc);color:var(--acc-txt);border-color:var(--acc)}
+.btn.ghost{background:none}
+.btn:disabled{opacity:.5}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--panel2);color:var(--sub);white-space:nowrap}
+.pill.ok{background:rgba(62,207,142,.14);color:var(--ok)}
+.pill.run{background:rgba(90,169,255,.14);color:var(--blue)}
+.pill.warn{background:rgba(245,165,36,.14);color:var(--warn)}
+.pill.err{background:rgba(255,93,93,.14);color:var(--err)}
+.vid{display:flex;gap:12px;align-items:center;cursor:pointer}
+.vid .num{font:700 13px ui-monospace,monospace;color:var(--sub);min-width:30px}
+.vid .t{flex:1;font-weight:600;font-size:15px}
+.idea{cursor:pointer}
+.idea:active{border-color:var(--acc)}
+.esc{border-left:3px solid var(--line);padding-left:10px;margin:14px 0}
+.esc .cap{color:var(--acc);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.esc input{font-size:13px;padding:7px 10px;margin-top:6px;color:var(--sub)}
+.copy{position:relative}
+.copy pre{white-space:pre-wrap;word-break:break-word;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0 0;font:14px/1.4 system-ui,sans-serif;max-height:180px;overflow:auto}
+.copy button{position:absolute;right:6px;top:-4px;font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--txt)}
+details{border-top:1px solid var(--line);padding-top:8px;margin-top:10px}
+summary{cursor:pointer;font-weight:600;padding:6px 0}
+.spin{width:18px;height:18px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:g .8s linear infinite}
+@keyframes g{to{transform:rotate(360deg)}}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#fff;color:#111;padding:10px 16px;border-radius:12px;font-size:14px;font-weight:600;z-index:20;max-width:90vw;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.empty{text-align:center;padding:30px 10px;color:var(--sub)}
+.steps{counter-reset:s;padding-left:0;list-style:none}
+.steps li{counter-increment:s;position:relative;padding-left:34px;margin:10px 0;font-size:14.5px}
+.steps li:before{content:counter(s);position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:var(--acc);color:var(--acc-txt);font-weight:700;font-size:13px;display:grid;place-items:center}
+a{color:var(--blue)}
+.hide{display:none!important}
+.check{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:14px}
+.check input{width:22px;height:22px}
+</style>
+</head>
+<body>
+<header>
+  <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#ffcf33"/><path d="M24 19v26l21-13z" fill="#1a1400"/></svg>
+  <h1>Fábrica de Videos<div class="canal" id="hCanal"></div></h1>
+  <button class="btn ghost" style="width:auto;margin:0;padding:8px" id="btnRefrescar" aria-label="Actualizar">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+  </button>
+</header>
+<main id="app"></main>
+<nav>
+  <button data-v="videos" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg>Videos</button>
+  <button data-v="nuevo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>Nuevo</button>
+  <button data-v="ajustes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Ajustes</button>
+</nav>
+
+<script>
+"use strict";
+/* ------------------------------------------------------------ estado */
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem("fv_" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("fv_" + k, JSON.stringify(v)); } catch {} }
+};
+const MODELOS = ["gemini-flash-latest", "gemini-3.8-flash", "gemini-3.6-flash", "gemini-3.5-flash-lite"];
+const DEF_CFG = { owner: "", repo: "", token: "", gemini: "", modelo: "gemini-flash-latest",
+  canal: "Expedientes Olvidados",
+  nicho: "Misterios reales e historia: casos sin resolver, desapariciones, civilizaciones antiguas, sucesos históricos extraños y lo que la ciencia ha descubierto sobre ellos. Tono serio, documental y riguroso, nunca sensacionalista ni inventado." };
+let cfg = Object.assign({}, DEF_CFG, LS.get("cfg", {}));
+let vista = "videos";
+let datos = { guiones: [], releases: {}, runs: [] , cargado: false, error: "" };
+let borrador = LS.get("borrador", null);
+let ideas = LS.get("ideas", []);
+const publicados = LS.get("publicados", {});
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function toast(msg, ms = 2600) {
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg;
+  document.body.appendChild(t); setTimeout(() => t.remove(), ms);
+}
+const listo = () => cfg.owner && cfg.repo && cfg.token && cfg.gemini;
+
+/* ------------------------------------------------------------ GitHub */
+async function gh(path, opts = {}) {
+  const r = await fetch("https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + path, {
+    ...opts,
+    headers: { "Authorization": "Bearer " + cfg.token, "Accept": "application/vnd.github+json",
+               "X-GitHub-Api-Version": "2022-11-28", ...(opts.headers || {}) }
+  });
+  if (r.status === 404 && opts.permitir404) return null;
+  if (!r.ok) {
+    let m = ""; try { m = (await r.json()).message; } catch {}
+    throw new Error("GitHub " + r.status + (m ? ": " + m : ""));
+  }
+  return r.status === 204 ? null : r.json();
+}
+const b64 = s => { const b = new TextEncoder().encode(s); let x = ""; b.forEach(c => x += String.fromCharCode(c)); return btoa(x); };
+
+async function cargar() {
+  if (!cfg.owner || !cfg.repo || !cfg.token) return;
+  datos.error = "";
+  try {
+    const [arch, rels, runs] = await Promise.all([
+      gh("/contents/guiones", { permitir404: true }),
+      gh("/releases?per_page=100"),
+      gh("/actions/runs?per_page=10")
+    ]);
+    datos.guiones = (arch || []).filter(f => f.name.endsWith(".json")).map(f => f.name.replace(/\.json$/, "")).sort().reverse();
+    datos.releases = {};
+    for (const r of rels) {
+      let meta = null; try { meta = JSON.parse(r.body); } catch {}
+      datos.releases[r.tag_name] = { ...r, meta };
+    }
+    datos.runs = runs.workflow_runs || [];
+    datos.cargado = true;
+  } catch (e) { datos.error = e.message; }
+  render();
+}
+function estado(id) {
+  if (datos.releases[id]) return publicados[id] ? ["Publicado", "ok"] : ["Listo para publicar", "ok"];
+  const r = datos.runs[0];
+  if (r && (r.status === "in_progress" || r.status === "queued")) return ["Creándose…", "run"];
+  if (r && r.conclusion === "failure") return ["Error", "err"];
+  return ["En cola", "warn"];
+}
+function siguienteNumero() {
+  const nums = datos.guiones.map(g => parseInt(g, 10)).filter(n => !isNaN(n));
+  return String((nums.length ? Math.max(...nums) : 0) + 1).padStart(3, "0");
+}
+const slug = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "").slice(0, 40);
+
+/* ------------------------------------------------------------ Gemini */
+async function gemini(prompt, conBusqueda = true) {
+  const modelos = [cfg.modelo, ...MODELOS.filter(m => m !== cfg.modelo)];
+  let ultimo;
+  for (const m of modelos) {
+    for (const buscar of conBusqueda ? [true, false] : [false]) {
+      const body = { contents: [{ role: "user", parts: [{ text: prompt }] }], generationConfig: { temperature: 0.8 } };
+      if (buscar) body.tools = [{ google_search: {} }];
+      try {
+        const r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + m + ":generateContent", {
+          method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": cfg.gemini }, body: JSON.stringify(body)
+        });
+        const j = await r.json();
+        if (!r.ok) { ultimo = new Error("Gemini (" + m + "): " + (j.error?.message || r.status)); if (r.status === 400 && buscar) continue; break; }
+        const txt = (j.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("");
+        const fuentesWeb = (j.candidates?.[0]?.groundingMetadata?.groundingChunks || []).map(c => c.web).filter(Boolean);
+        if (!txt) { ultimo = new Error("Gemini no devolvió texto"); break; }
+        return { txt, fuentesWeb, modelo: m };
+      } catch (e) { ultimo = e; break; }
+    }
+  }
+  throw ultimo;
+}
+function sacarJSON(t) {
+  t = t.replace(/```(?:json)?/g, "");
+  const a = Math.min(...["{", "["].map(c => t.indexOf(c)).filter(i => i >= 0));
+  const b = Math.max(t.lastIndexOf("}"), t.lastIndexOf("]"));
+  return JSON.parse(t.slice(a, b + 1));
+}
+function hechos() {
+  const titulos = datos.guiones.map(id => datos.releases[id]?.meta?.titulo || id).slice(0, 40);
+  return titulos.length ? "Temas que el canal YA hizo (no repetir): " + titulos.join(" | ") : "";
+}
+async function pedirIdeas() {
+  const p = `Eres el investigador jefe del canal de YouTube en español "${cfg.canal}". Nicho: ${cfg.nicho}
+${hechos()}
+Propón 6 temas para videos de 8-10 minutos con gran potencial de búsqueda y curiosidad en Latinoamérica y España. Deben ser casos REALES y documentados, con suficientes datos verificables y con imágenes de dominio público o Creative Commons probables en Wikimedia Commons. Varía épocas y regiones (incluye al menos uno de Latinoamérica).
+Responde SOLO un JSON: [{"tema":"...","gancho":"una frase intrigante de por qué engancha"}]`;
+  const { txt } = await gemini(p, true);
+  return sacarJSON(txt);
+}
+const ESQUEMA = `{
+ "titulo": "título atractivo y honesto, máximo 90 caracteres, con la palabra clave principal al inicio",
+ "texto_miniatura": "3 a 5 palabras impactantes para la miniatura",
+ "miniatura_escena": 0,
+ "descripcion": "2 párrafos: resumen que engancha + invitación a comentar. Máximo 900 caracteres. Sin hashtags.",
+ "etiquetas": ["10 a 14 etiquetas en español, total menor a 400 caracteres"],
+ "fuentes": ["Nombre de la fuente real consultada (medio o institución, fecha) y URL"],
+ "escenas": [
+   {"capitulo": "Nombre corto (solo en la primera escena de cada capítulo, 6 a 8 capítulos en total)",
+    "texto": "narración de 40 a 65 palabras",
+    "imagen": "búsqueda EN INGLÉS para Wikimedia Commons: 2 a 5 palabras concretas (lugar, objeto, persona histórica, año)",
+    "imagen_alternativas": ["búsqueda más general en inglés", "otra alternativa"]}
+ ],
+ "shorts": [
+   {"titulo": "máximo 90 caracteres con 1 emoji y 2 hashtags",
+    "descripcion": "1 frase + 'Historia completa en el canal.' + 4 hashtags incluido #shorts",
+    "etiquetas": ["5 etiquetas"],
+    "escenas": [{"texto": "20 a 30 palabras", "imagen": "...", "imagen_alternativas": ["..."]}]}
+ ]
+}`;
+async function escribirGuion(tema) {
+  const p = `Eres el guionista e investigador del canal de YouTube en español "${cfg.canal}". Nicho: ${cfg.nicho}
+Investiga a fondo con Google Search y escribe el guion completo de un video sobre: "${tema}".
+
+REGLAS DE CONTENIDO (muy importantes):
+- Usa SOLO hechos verificables de fuentes serias. Nada inventado: ni citas, ni nombres, ni cifras. Si algo es dudoso o una teoría, dilo explícitamente ("según...", "una teoría sostiene...").
+- Español neutro latinoamericano, narración documental, frases claras y cortas, fáciles de leer en voz alta. Escribe los años con números (1959). No uses abreviaturas, símbolos ni paréntesis.
+- Estructura: gancho fuerte en los primeros 15 segundos con la pregunta central → contexto → desarrollo cronológico con suspenso → teorías → lo que se sabe hoy (ciencia/investigación) → cierre reflexivo → última escena: invita a comentar qué opinan y a suscribirse, de forma natural.
+- Entre 22 y 28 escenas (unas 1300 palabras en total, 8 a 10 minutos).
+- Cada escena necesita una búsqueda de imagen distinta y CONCRETA en inglés que probablemente exista en Wikimedia Commons (fotos históricas, lugares, mapas, objetos, documentos). Evita búsquedas abstractas como "mystery" o "fear".
+- 3 shorts de 4 escenas cada uno (35-50 segundos), cada uno con un ángulo distinto y su propio gancho en la primera frase; el último texto de cada short invita a ver el video completo en el canal.
+- "miniatura_escena": el índice (desde 0) de la escena con la imagen más impactante para la miniatura.
+
+Responde SOLO con un JSON válido con esta forma exacta:
+${ESQUEMA}`;
+  const { txt, fuentesWeb, modelo } = await gemini(p, true);
+  const g = sacarJSON(txt);
+  if (!g.escenas || g.escenas.length < 8) throw new Error("El guion salió incompleto, prueba de nuevo.");
+  if ((!g.fuentes || !g.fuentes.length) && fuentesWeb.length) g.fuentes = fuentesWeb.slice(0, 5).map(w => w.title + " — " + w.uri);
+  g.tema = tema; g._modelo = modelo;
+  return g;
+}
+async function revisarGuion(g, instruccion) {
+  const limpio = { ...g }; delete limpio._modelo; delete limpio.tema;
+  const p = `Este es el guion (JSON) de un video del canal "${cfg.canal}". Aplica este cambio pedido por el autor: "${instruccion}".
+Mantén las mismas reglas: hechos verificables, español neutro, misma estructura y campos. Devuelve SOLO el JSON completo actualizado.
+${JSON.stringify(limpio)}`;
+  const { txt } = await gemini(p, true);
+  const n = sacarJSON(txt); n.tema = g.tema; return n;
+}
+
+/* ------------------------------------------------------------ vistas */
+function ir(v) {
+  vista = v;
+  document.querySelectorAll("nav button").forEach(b => b.classList.toggle("on", b.dataset.v === v));
+  render(); window.scrollTo(0, 0);
+}
+function render() {
+  $("#hCanal").textContent = cfg.canal || "";
+  if (!listo() && vista !== "ajustes") return vBienvenida();
+  if (vista === "videos") return vVideos();
+  if (vista === "nuevo") return vNuevo();
+  if (vista === "ajustes") return vAjustes();
+  if (vista.startsWith("det:")) return vDetalle(vista.slice(4));
+}
+function vBienvenida() {
+  app.innerHTML = `<div class="card"><h3>¡Bienvenido! 👋</h3>
+  <p class="muted">Antes de empezar hay que conectar la app con tu fábrica en la nube (GitHub) y con la IA gratuita de Google (Gemini). Solo se hace una vez.</p>
+  <button class="btn pri" onclick="ir('ajustes')">Configurar ahora</button></div>`;
+}
+function vVideos() {
+  let h = "";
+  if (datos.error) h += `<div class="card" style="border-color:var(--err)"><b>No se pudo conectar</b><div class="muted small">${esc(datos.error)}</div></div>`;
+  if (borrador) h += `<div class="card vid" onclick="ir('nuevo')"><span class="pill warn">Borrador</span><div class="t">${esc(borrador.titulo || borrador.tema)}</div></div>`;
+  const run = datos.runs[0];
+  if (run && (run.status === "in_progress" || run.status === "queued"))
+    h += `<div class="card" style="display:flex;gap:10px;align-items:center"><div class="spin" style="color:var(--blue)"></div><div><b>La fábrica está trabajando</b><div class="muted small">Un video tarda entre 15 y 30 minutos. Puedes cerrar la app.</div></div></div>`;
+  if (!datos.cargado && !datos.error) h += `<div class="empty"><div class="spin" style="margin:0 auto 10px"></div>Cargando…</div>`;
+  else if (!datos.guiones.length) h += `<div class="empty">Aún no hay videos.<br><button class="btn pri" onclick="ir('nuevo')">Crear el primero</button></div>`;
+  for (const id of datos.guiones) {
+    const [e, c] = estado(id);
+    const t = datos.releases[id]?.meta?.titulo || id.replace(/^\d+_/, "").replace(/_/g, " ");
+    h += `<div class="card vid" onclick="ir('det:${esc(id)}')"><div class="num">${esc(id.slice(0, 3))}</div><div class="t">${esc(t)}</div><span class="pill ${c}">${e}</span></div>`;
+  }
+  app.innerHTML = h;
+}
+function bloqueCopia(etq, txt) {
+  const id = "c" + Math.random().toString(36).slice(2);
+  return `<label>${etq}</label><div class="copy"><button onclick="copiar('${id}')">Copiar</button><pre id="${id}">${esc(txt)}</pre></div>`;
+}
+function copiar(id) {
+  const t = document.getElementById(id).textContent;
+  (navigator.clipboard?.writeText(t) || Promise.reject()).then(() => toast("Copiado ✓")).catch(() => {
+    const r = document.createRange(); r.selectNodeContents(document.getElementById(id));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand("copy"); toast("Copiado ✓");
+  });
+}
+function vDetalle(id) {
+  const rel = datos.releases[id];
+  let h = `<button class="btn ghost" style="width:auto;margin:0 0 10px" onclick="ir('videos')">← Volver</button>`;
+  if (!rel) {
+    const [e, c] = estado(id);
+    const run = datos.runs[0];
+    h += `<div class="card"><h3>${esc(id)}</h3><span class="pill ${c}">${e}</span>
+      <p class="muted">${c === "err" ? "La fábrica tuvo un problema con este video. Toca reintentar; si vuelve a fallar, abre el registro y envíaselo a Claude." : "La fábrica lo creará automáticamente. Vuelve en unos minutos."}</p>
+      ${c === "err" ? `<button class="btn pri" onclick="reintentar('${esc(id)}')">Reintentar</button><a class="btn" target="_blank" href="${esc(run?.html_url || "#")}">Ver registro</a>` : ""}</div>`;
+    app.innerHTML = h; return;
+  }
+  const m = rel.meta || {};
+  const a = Object.fromEntries((rel.assets || []).map(x => [x.name, x.browser_download_url]));
+  const mb = n => { const x = (rel.assets || []).find(z => z.name === n); return x ? " · " + Math.round(x.size / 1048576) + " MB" : ""; };
+  h += `<div class="card"><h3>🎬 Video largo</h3><div class="muted small">${m.duracion ? Math.floor(m.duracion / 60) + ":" + String(m.duracion % 60).padStart(2, "0") + " min" : ""}</div>
+    ${a["miniatura.jpg"] ? `<img src="${esc(a["miniatura.jpg"])}" alt="Miniatura" style="width:100%;border-radius:10px;margin-top:10px">` : ""}
+    <div class="row"><a class="btn pri" href="${esc(a["video.mp4"])}" download>Descargar video${mb("video.mp4")}</a></div>
+    <a class="btn" href="${esc(a["miniatura.jpg"])}" download>Descargar miniatura</a>
+    ${bloqueCopia("Título", m.titulo)}${bloqueCopia("Descripción", m.descripcion)}${bloqueCopia("Etiquetas", (m.etiquetas || []).join(", "))}
+    <p class="muted small">Al subir: "No, no es contenido para niños" · Categoría: Educación.</p></div>`;
+  (m.shorts || []).forEach((s, i) => {
+    h += `<div class="card"><h3>📱 Short ${i + 1}</h3>
+      <a class="btn pri" href="${esc(a[s.archivo])}" download>Descargar short${mb(s.archivo)}</a>
+      ${bloqueCopia("Título", s.titulo)}${bloqueCopia("Descripción", s.descripcion)}</div>`;
+  });
+  h += `<a class="btn" href="https://studio.youtube.com" target="_blank">Abrir YouTube Studio</a>
+    <label class="check"><input type="checkbox" ${publicados[id] ? "checked" : ""} onchange="marcar('${esc(id)}',this.checked)"> Ya lo publiqué</label>`;
+  app.innerHTML = h;
+}
+function marcar(id, v) { publicados[id] = v; LS.set("publicados", publicados); }
+async function reintentar(id) {
+  try {
+    await fetch("https://api.github.com/repos/" + cfg.owner + "/" + cfg.repo + "/actions/workflows/fabrica.yml/dispatches", {
+      method: "POST", headers: { "Authorization": "Bearer " + cfg.token, "Accept": "application/vnd.github+json" },
+      body: JSON.stringify({ ref: "main", inputs: { rehacer: id } })
+    }).then(r => { if (!r.ok) throw new Error("GitHub " + r.status); });
+    toast("Reintentando… vuelve en unos minutos"); setTimeout(cargar, 4000);
+  } catch (e) { toast("No se pudo: " + e.message, 4000); }
+}
+
+/* --------- nuevo */
+function vNuevo() {
+  if (borrador) return vBorrador();
+  let h = `<div class="card"><h3>¿De qué trata el próximo video?</h3>
+    <label for="tema">Tema</label><textarea id="tema" rows="2" placeholder="Ej.: La desaparición del vuelo 19 en el Triángulo de las Bermudas"></textarea>
+    <button class="btn pri" id="bEscribir">✍️ Escribir guion con IA</button>
+    <button class="btn" id="bIdeas">💡 Sugerirme ideas</button></div><div id="zIdeas"></div>`;
+  app.innerHTML = h;
+  pintarIdeas();
+  $("#bIdeas").onclick = async e => {
+    const b = e.currentTarget; b.disabled = true; b.innerHTML = '<div class="spin"></div> Buscando ideas…';
+    try { ideas = await pedirIdeas(); LS.set("ideas", ideas); pintarIdeas(); }
+    catch (er) { toast(er.message, 5000); }
+    b.disabled = false; b.textContent = "💡 Sugerirme otras ideas";
+  };
+  $("#bEscribir").onclick = () => { const t = $("#tema").value.trim(); if (!t) return toast("Escribe un tema o elige una idea"); generar(t); };
+}
+function pintarIdeas() {
+  const z = $("#zIdeas"); if (!z) return;
+  z.innerHTML = ideas.map((i, k) => `<div class="card idea" onclick="usarIdea(${k})"><b>${esc(i.tema)}</b><div class="muted small">${esc(i.gancho)}</div></div>`).join("");
+}
+function usarIdea(k) { $("#tema").value = ideas[k].tema; $("#tema").scrollIntoView({ behavior: "smooth", block: "center" }); }
+async function generar(tema) {
+  app.innerHTML = `<div class="card" style="text-align:center;padding:30px 16px"><div class="spin" style="margin:0 auto 14px;width:28px;height:28px;color:var(--acc)"></div>
+   <b>Investigando y escribiendo…</b><p class="muted small">La IA busca fuentes y redacta el guion, el título, la descripción y los 3 shorts. Tarda 1 o 2 minutos.</p></div>`;
+  try { borrador = await escribirGuion(tema); LS.set("borrador", borrador); render(); }
+  catch (e) { toast(e.message, 6000); vNuevo(); $("#tema").value = tema; }
+}
+function vBorrador() {
+  const g = borrador;
+  let h = `<div class="card"><span class="pill warn">Revisión</span>
+    <p class="muted small" style="margin-bottom:0">Lee el guion y corrige lo que quieras. <b>Revisa que los datos sean ciertos</b>: la IA a veces se equivoca. Cuando esté bien, envíalo a la fábrica.</p>
+    <label>Título</label><input data-k="titulo" value="${esc(g.titulo)}" maxlength="100">
+    <label>Texto de la miniatura</label><input data-k="texto_miniatura" value="${esc(g.texto_miniatura)}">
+    <label>Descripción</label><textarea data-k="descripcion" rows="5">${esc(g.descripcion)}</textarea>
+    <label>Etiquetas (separadas por comas)</label><input data-k="etiquetas" value="${esc((g.etiquetas || []).join(", "))}">
+    <label>Fuentes</label><textarea data-k="fuentes" rows="3">${esc((g.fuentes || []).join("\n"))}</textarea></div>
+    <div class="card"><h3>Guion · ${g.escenas.length} escenas · ~${Math.round(g.escenas.reduce((n, e) => n + e.texto.split(/\s+/).length, 0) / 150)} min</h3>`;
+  g.escenas.forEach((e, i) => {
+    h += `<div class="esc">${e.capitulo ? `<div class="cap">${esc(e.capitulo)}</div>` : ""}
+      <textarea data-e="${i}" rows="4">${esc(e.texto)}</textarea>
+      <input data-i="${i}" value="${esc(e.imagen)}" aria-label="Imagen (búsqueda en inglés)" placeholder="Imagen (búsqueda en inglés)"></div>`;
+  });
+  h += `</div>`;
+  (g.shorts || []).forEach((s, k) => {
+    h += `<div class="card"><details><summary>📱 Short ${k + 1}: ${esc(s.titulo)}</summary>
+      <label>Título</label><input data-sk="${k}" data-f="titulo" value="${esc(s.titulo)}">
+      ${s.escenas.map((e, i) => `<label>Escena ${i + 1}</label><textarea rows="3" data-sk="${k}" data-se="${i}">${esc(e.texto)}</textarea>`).join("")}
+      </details></div>`;
+  });
+  h += `<div class="card"><h3>¿Quieres cambiar algo con IA?</h3>
+    <textarea id="instr" rows="2" placeholder="Ej.: hazlo más intrigante al inicio, o cambia el título"></textarea>
+    <button class="btn" id="bRev">🔄 Aplicar cambio</button></div>
+    <button class="btn pri" id="bEnviar">🚀 Aprobar y crear el video</button>
+    <button class="btn ghost" id="bDesc">Descartar borrador</button>`;
+  app.innerHTML = h;
+  app.oninput = guardarEdicion;
+  $("#bDesc").onclick = () => { if (confirmarSuave("bDesc")) { borrador = null; LS.set("borrador", null); app.oninput = null; render(); } };
+  $("#bRev").onclick = async e => {
+    const ins = $("#instr").value.trim(); if (!ins) return toast("Escribe qué quieres cambiar");
+    const b = e.currentTarget; b.disabled = true; b.innerHTML = '<div class="spin"></div> Reescribiendo…';
+    try { borrador = await revisarGuion(borrador, ins); LS.set("borrador", borrador); render(); toast("Cambio aplicado ✓"); }
+    catch (er) { toast(er.message, 5000); b.disabled = false; b.textContent = "🔄 Aplicar cambio"; }
+  };
+  $("#bEnviar").onclick = enviar;
+}
+const pendientes = {};
+function confirmarSuave(k) {
+  if (pendientes[k]) return true;
+  pendientes[k] = true; toast("Toca otra vez para confirmar"); setTimeout(() => delete pendientes[k], 3000); return false;
+}
+function guardarEdicion(ev) {
+  const el = ev.target, g = borrador;
+  if (el.dataset.k) {
+    const k = el.dataset.k;
+    g[k] = (k === "etiquetas") ? el.value.split(",").map(s => s.trim()).filter(Boolean)
+         : (k === "fuentes") ? el.value.split("\n").map(s => s.trim()).filter(Boolean) : el.value;
+  } else if (el.dataset.e !== undefined) g.escenas[+el.dataset.e].texto = el.value;
+  else if (el.dataset.i !== undefined) g.escenas[+el.dataset.i].imagen = el.value;
+  else if (el.dataset.sk !== undefined) {
+    const s = g.shorts[+el.dataset.sk];
+    if (el.dataset.f) s[el.dataset.f] = el.value; else s.escenas[+el.dataset.se].texto = el.value;
+  }
+  LS.set("borrador", g);
+}
+async function enviar(e) {
+  const b = e.currentTarget; b.disabled = true; b.innerHTML = '<div class="spin"></div> Enviando a la fábrica…';
+  try {
+    await cargar();
+    const id = siguienteNumero() + "_" + slug(borrador.titulo || borrador.tema);
+    const g = { id, ...borrador }; delete g._modelo; delete g.tema;
+    g.miniatura_escena = Math.min(Math.max(0, +g.miniatura_escena || 0), g.escenas.length - 1);
+    await gh("/contents/guiones/" + id + ".json", { method: "PUT",
+      body: JSON.stringify({ message: "Nuevo guion: " + g.titulo, content: b64(JSON.stringify(g, null, 1)) }) });
+    borrador = null; LS.set("borrador", null); app.oninput = null;
+    toast("¡Enviado! La fábrica empezó a crear el video 🎬", 4000);
+    vista = "videos"; ir("videos"); setTimeout(cargar, 5000);
+  } catch (er) { toast(er.message, 6000); b.disabled = false; b.textContent = "🚀 Aprobar y crear el video"; }
+}
+
+/* --------- ajustes */
+function vAjustes() {
+  app.innerHTML = `<div class="card"><h3>Conexión con tu fábrica (GitHub)</h3>
+    <label>Usuario de GitHub</label><input id="owner" value="${esc(cfg.owner)}" autocapitalize="off" autocomplete="off">
+    <label>Nombre del repositorio</label><input id="repo" value="${esc(cfg.repo)}" autocapitalize="off" autocomplete="off" placeholder="fabrica-videos">
+    <label>Token de GitHub</label><input id="token" type="password" value="${esc(cfg.token)}" autocomplete="off">
+    <p class="muted small">Se guarda solo en este celular.</p></div>
+    <div class="card"><h3>IA de Google (Gemini, gratis)</h3>
+    <label>Clave de API de Gemini</label><input id="gemini" type="password" value="${esc(cfg.gemini)}" autocomplete="off">
+    <p class="muted small">Créala gratis en <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a>.</p>
+    <label>Modelo</label><select id="modelo">${MODELOS.map(m => `<option ${m === cfg.modelo ? "selected" : ""}>${m}</option>`).join("")}</select></div>
+    <div class="card"><h3>Tu canal</h3>
+    <label>Nombre del canal</label><input id="canal" value="${esc(cfg.canal)}">
+    <label>Temática y estilo</label><textarea id="nicho" rows="4">${esc(cfg.nicho)}</textarea></div>
+    <button class="btn pri" id="bGuardar">Guardar y probar conexión</button>`;
+  $("#bGuardar").onclick = async e => {
+    for (const k of ["owner", "repo", "token", "gemini", "modelo", "canal", "nicho"]) cfg[k] = $("#" + k).value.trim();
+    LS.set("cfg", cfg);
+    const b = e.currentTarget; b.disabled = true; b.innerHTML = '<div class="spin"></div> Probando…';
+    let msg = [];
+    try { await gh(""); msg.push("GitHub ✓"); } catch (er) { msg.push("GitHub ✗ " + er.message); }
+    try { const r = await gemini("Responde solo: OK", false); msg.push("Gemini ✓ (" + r.modelo + ")"); } catch (er) { msg.push("Gemini ✗ " + er.message); }
+    b.disabled = false; b.textContent = "Guardar y probar conexión";
+    toast(msg.join(" · "), 6000);
+    if (msg.every(m => m.includes("✓"))) { datos.cargado = false; ir("videos"); cargar(); }
+  };
+}
+
+/* ------------------------------------------------------------ inicio */
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => ir(b.dataset.v));
+$("#btnRefrescar").onclick = () => { toast("Actualizando…", 1200); cargar(); };
+setInterval(() => { if (document.visibilityState === "visible" && vista === "videos" && listo()) cargar(); }, 60000);
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+render(); if (listo()) cargar();
+</script>
+</body>
+</html>
